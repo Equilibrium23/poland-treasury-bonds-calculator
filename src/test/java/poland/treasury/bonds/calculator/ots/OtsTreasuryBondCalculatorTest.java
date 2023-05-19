@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import poland.treasury.bonds.calculator.DateRange;
+import poland.treasury.bonds.calculator.TreasuryBondService;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -45,7 +46,7 @@ class OtsTreasuryBondCalculatorTest {
         LocalDate startDate = saleDateRange.startDate();
         LocalDate endDate = saleDateRange.startDate().plusMonths(3);
 
-        OtsTreasuryBond otsTreasuryBond = OtsTreasuryBondService.buyOtsBonds(otsProspectus, 1, startDate);
+        OtsTreasuryBond otsTreasuryBond = TreasuryBondService.buyOtsBonds(otsProspectus, 1, startDate);
 
         Assertions.assertEquals(expectedReturn, OtsTreasuryBondCalculator.calculate(otsTreasuryBond, endDate));
     }
@@ -58,7 +59,7 @@ class OtsTreasuryBondCalculatorTest {
                 .saleDateRange(new DateRange(LocalDate.of(2023, 1, 1), LocalDate.of(2023, 1, 31)))
                 .build();
 
-        OtsTreasuryBond otsTreasuryBond = OtsTreasuryBondService.buyOtsBonds(otsProspectus, 1, LocalDate.of(2023, 1, ANY_DAY_OF_MONTH));
+        OtsTreasuryBond otsTreasuryBond = TreasuryBondService.buyOtsBonds(otsProspectus, 1, LocalDate.of(2023, 1, ANY_DAY_OF_MONTH));
 
         Assertions.assertEquals(100, OtsTreasuryBondCalculator.calculate(otsTreasuryBond, LocalDate.of(2023, 2, ANY_DAY_OF_MONTH)));
     }

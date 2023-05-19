@@ -6,6 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import poland.treasury.bonds.calculator.DateRange;
+import poland.treasury.bonds.calculator.TreasuryBondService;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -30,7 +31,7 @@ class TosTreasuryBondCalculatorTest {
     @ParameterizedTest
     @MethodSource("tosEarlierBuyBack")
     public void testEarlierBuyBack(LocalDate purchaseDay, LocalDate buyBackDate, double expectedReturn){
-        TosTreasuryBond tosTreasuryBond = TosTreasuryBondService.buyTosBonds(TOS.TOS0526, 1, purchaseDay);
+        TosTreasuryBond tosTreasuryBond = TreasuryBondService.buyTosBonds(TOS.TOS0526, 1, purchaseDay);
 
         Assertions.assertEquals(expectedReturn, TosTreasuryBondCalculator.calculate(tosTreasuryBond, buyBackDate));
     }

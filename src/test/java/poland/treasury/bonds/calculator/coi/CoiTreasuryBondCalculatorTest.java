@@ -3,6 +3,7 @@ package poland.treasury.bonds.calculator.coi;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import poland.treasury.bonds.calculator.DateRange;
+import poland.treasury.bonds.calculator.TreasuryBondService;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,7 +20,7 @@ class CoiTreasuryBondCalculatorTest {
 
         List<Double> inflation = List.of(0.1, 0.1, 0.1);
 
-        CoiTreasuryBond coiTreasuryBond = CoiTreasuryBondService.buyCoiBonds(coiProspectus, 1, LocalDate.of(2022, 6, 2), inflation);
+        CoiTreasuryBond coiTreasuryBond = TreasuryBondService.buyCoiBonds(coiProspectus, 1, LocalDate.of(2022, 6, 2), inflation);
 
         Assertions.assertEquals(31.19, CoiTreasuryBondCalculator.calculate(coiTreasuryBond));
     }
