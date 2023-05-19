@@ -26,12 +26,12 @@ public class CoiProspectusBuilder {
     public CoiProspectusBuilder saleDateRange(DateRange saleDateRange) {
         this.saleDateRange = saleDateRange;
         this.buyBackDateRange = new DateRange(saleDateRange.startDate().plusYears(4), saleDateRange.endDate().plusYears(4));
-
         return this;
     }
 
     public CoiProspectusBuilder buyBackDateRange(DateRange buyBackDateRange) {
         this.buyBackDateRange = buyBackDateRange;
+        this.saleDateRange = new DateRange(buyBackDateRange.startDate().minusYears(4), buyBackDateRange.endDate().minusYears(4));
         return this;
     }
 }

@@ -1,6 +1,8 @@
-package poland.treasury.bonds.calculator.tos;
+package poland.treasury.bonds.calculator.database;
 
 import poland.treasury.bonds.calculator.DateRange;
+import poland.treasury.bonds.calculator.tos.TosProspectus;
+import poland.treasury.bonds.calculator.tos.TosProspectusBuilder;
 
 public class TOS {
     public static TosProspectus TOS0825 = new TosProspectusBuilder()
