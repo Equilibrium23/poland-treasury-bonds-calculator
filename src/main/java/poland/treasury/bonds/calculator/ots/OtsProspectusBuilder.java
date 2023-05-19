@@ -7,7 +7,7 @@ public class OtsProspectusBuilder {
     private DateRange saleDateRange;
     private DateRange buyBackDateRange;
 
-    public OtsProspectus build(){
+    public OtsProspectus build() {
         return new OtsProspectus(interestRate, saleDateRange, buyBackDateRange);
     }
 
@@ -18,7 +18,19 @@ public class OtsProspectusBuilder {
 
     public OtsProspectusBuilder saleDateRange(DateRange saleDateRange) {
         this.saleDateRange = saleDateRange;
-        this.buyBackDateRange = new DateRange(saleDateRange.startDate().plusMonths(3), saleDateRange.endDate().plusMonths(3));
+        this.buyBackDateRange = new DateRange(
+                saleDateRange.startDate().plusMonths(OtsProspectus.BOND_DURATION.getMonths()),
+                saleDateRange.endDate().plusMonths(OtsProspectus.BOND_DURATION.getMonths())
+        );
+        return this;
+    }
+
+    public OtsProspectusBuilder buyBackDateRange(DateRange buyBackDateRange) {
+        this.buyBackDateRange = buyBackDateRange;
+        this.saleDateRange = new DateRange(
+                saleDateRange.startDate().minusMonths(OtsProspectus.BOND_DURATION.getMonths()),
+                saleDateRange.endDate().minusMonths(OtsProspectus.BOND_DURATION.getMonths())
+        );
         return this;
     }
 }
