@@ -16,7 +16,7 @@ public class TosTreasuryBondCalculator {
         LocalDate newStartDate = tosTreasuryBond.getPurchaseDay().plusYears(k - 1);
         double ak = DAYS.between(newStartDate, buyBackDate);
         double ACT = DAYS.between(newStartDate, newStartDate.plusYears(1));
-        double r = tosTreasuryBond.getTosProspectus().interestRate();
+        double r = tosTreasuryBond.getProspectus().getInterestRate().doubleValue();
 
         double WP = Nk_1(k, r) * (1 + r * ak / ACT);
         BigDecimal bd = new BigDecimal(WP).setScale(2, RoundingMode.HALF_UP);

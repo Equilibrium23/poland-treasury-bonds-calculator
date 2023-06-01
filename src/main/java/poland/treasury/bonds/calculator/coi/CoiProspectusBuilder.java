@@ -2,23 +2,28 @@ package poland.treasury.bonds.calculator.coi;
 
 import poland.treasury.bonds.calculator.DateRange;
 import poland.treasury.bonds.calculator.ots.OtsProspectus;
+import poland.treasury.bonds.calculator.tos.TosProspectusBuilder;
+
+import java.math.BigDecimal;
 
 public class CoiProspectusBuilder {
-    private double firstYearInterestRate;
-    private double margin;
+    private BigDecimal firstYearInterestRate;
+    private BigDecimal margin;
     private DateRange saleDateRange;
     private DateRange buyBackDateRange;
+    private BigDecimal penaltyForEarlyBuyBack;
+
 
     public CoiProspectus build() {
-        return new CoiProspectus(firstYearInterestRate, margin, saleDateRange, buyBackDateRange);
+        return new CoiProspectus(penaltyForEarlyBuyBack, saleDateRange, buyBackDateRange, firstYearInterestRate, margin);
     }
 
-    public CoiProspectusBuilder firstYearInterestRate(double firstYearInterestRate) {
+    public CoiProspectusBuilder firstYearInterestRate(BigDecimal firstYearInterestRate) {
         this.firstYearInterestRate = firstYearInterestRate;
         return this;
     }
 
-    public CoiProspectusBuilder margin(double margin) {
+    public CoiProspectusBuilder margin(BigDecimal margin) {
         this.margin = margin;
         return this;
     }
@@ -38,6 +43,11 @@ public class CoiProspectusBuilder {
                 buyBackDateRange.startDate().minusYears(CoiProspectus.BOND_DURATION.getYears()),
                 buyBackDateRange.endDate().minusYears(CoiProspectus.BOND_DURATION.getYears())
         );
+        return this;
+    }
+
+    public CoiProspectusBuilder penaltyForEarlyBuyBack(BigDecimal penaltyForEarlyBuyBack) {
+        this.penaltyForEarlyBuyBack = penaltyForEarlyBuyBack;
         return this;
     }
 }

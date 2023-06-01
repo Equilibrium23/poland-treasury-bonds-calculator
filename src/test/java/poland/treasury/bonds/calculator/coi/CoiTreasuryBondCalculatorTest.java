@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import poland.treasury.bonds.calculator.DateRange;
 import poland.treasury.bonds.calculator.TreasuryBondService;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -13,8 +14,8 @@ class CoiTreasuryBondCalculatorTest {
     @Test
     public void testFullTimeBuyBack(){
         CoiProspectus coiProspectus = new CoiProspectusBuilder()
-                .firstYearInterestRate(0.055)
-                .margin(0.01)
+                .firstYearInterestRate(BigDecimal.valueOf(0.055))
+                .margin(BigDecimal.valueOf(0.01))
                 .saleDateRange(new DateRange(LocalDate.of(2022,6,1), LocalDate.of(2022, 6, 30)))
                 .build();
 

@@ -1,15 +1,23 @@
 package poland.treasury.bonds.calculator.ots;
 
 import poland.treasury.bonds.calculator.DateRange;
+import poland.treasury.bonds.calculator.TreasuryBondProspectus;
 
+import java.math.BigDecimal;
 import java.time.Period;
 
-public record OtsProspectus(double interestRate, DateRange saleDateRange, DateRange buyBackDateRange) {
-    public static final short PRICE = 100;
+public class OtsProspectus extends TreasuryBondProspectus {
     public static final Period BOND_DURATION = Period.ofMonths(3);
 
-    public OtsProspectus {
-        if (saleDateRange.isAfter(buyBackDateRange))
-            throw new IllegalArgumentException();
+    private final BigDecimal interestRate;
+
+    public OtsProspectus(BigDecimal penaltyForEarlyBuyBack, DateRange saleDateRange, DateRange buyBackDateRange,
+                         BigDecimal interestRate) {
+        super(penaltyForEarlyBuyBack, saleDateRange, buyBackDateRange);
+        this.interestRate = interestRate;
+    }
+
+    public BigDecimal getInterestRate() {
+        return interestRate;
     }
 }

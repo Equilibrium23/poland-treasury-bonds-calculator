@@ -9,6 +9,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import poland.treasury.bonds.calculator.DateRange;
 import poland.treasury.bonds.calculator.TreasuryBondService;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.stream.Stream;
@@ -39,7 +40,7 @@ class OtsTreasuryBondCalculatorTest {
     @MethodSource("otsSampleProspectus")
     public void testFullTimeBuyBack(DateRange saleDateRange, double interestRate, double expectedReturn){
         OtsProspectus otsProspectus = new OtsProspectusBuilder()
-                .interestRate(interestRate)
+                .interestRate(BigDecimal.valueOf(interestRate))
                 .saleDateRange(saleDateRange)
                 .build();
 
@@ -55,7 +56,7 @@ class OtsTreasuryBondCalculatorTest {
     @ValueSource(doubles = {0.0, 0.01, 0.1, 1})
     public void testEarlierBuyBack(double ANY_INTEREST){
         OtsProspectus otsProspectus = new OtsProspectusBuilder()
-                .interestRate(ANY_INTEREST)
+                .interestRate(BigDecimal.valueOf(ANY_INTEREST))
                 .saleDateRange(new DateRange(LocalDate.of(2023, 1, 1), LocalDate.of(2023, 1, 31)))
                 .build();
 

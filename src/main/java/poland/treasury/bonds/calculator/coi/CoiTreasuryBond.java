@@ -1,39 +1,22 @@
 package poland.treasury.bonds.calculator.coi;
 
+import poland.treasury.bonds.calculator.TreasuryBond;
+
 import java.time.LocalDate;
 import java.util.List;
 
-public class CoiTreasuryBond {
-    private final CoiProspectus coiProspectus;
-    private final long quantity;
-    private final LocalDate purchaseDay;
-    private final LocalDate defaultBuyBackDay;
+public class CoiTreasuryBond extends TreasuryBond {
+    private final CoiProspectus prospectus;
     private final List<Double> inflation;
 
-    public CoiTreasuryBond(CoiProspectus coiProspectus, long quantity, LocalDate purchaseDay, List<Double> inflation) {
-        this.coiProspectus = coiProspectus;
-        this.quantity = quantity;
-        this.purchaseDay = purchaseDay;
+    public CoiTreasuryBond(CoiProspectus prospectus, long quantity, LocalDate purchaseDay, List<Double> inflation) {
+        super(prospectus, quantity, purchaseDay, purchaseDay.plusYears(CoiProspectus.BOND_DURATION.getYears()));
+        this.prospectus = prospectus;
         this.inflation = inflation;
-
-        // Why not from coiProspectus ??
-        this.defaultBuyBackDay = purchaseDay.plusYears(4);
     }
 
-    public CoiProspectus getCoiProspectus() {
-        return coiProspectus;
-    }
-
-    public long getQuantity() {
-        return quantity;
-    }
-
-    public LocalDate getPurchaseDay() {
-        return purchaseDay;
-    }
-
-    public LocalDate getDefaultBuyBackDay() {
-        return defaultBuyBackDay;
+    public CoiProspectus getProspectus() {
+        return prospectus;
     }
 
     public List<Double> getInflation() {

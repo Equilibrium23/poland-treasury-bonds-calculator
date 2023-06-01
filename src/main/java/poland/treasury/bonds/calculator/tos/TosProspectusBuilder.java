@@ -2,22 +2,24 @@ package poland.treasury.bonds.calculator.tos;
 
 import poland.treasury.bonds.calculator.DateRange;
 
+import java.math.BigDecimal;
+
 public class TosProspectusBuilder {
-    private double interestRate;
+    private BigDecimal interestRate;
     private DateRange saleDateRange;
     private DateRange buyBackDateRange;
-    private double penaltyForEarlyBuyBack;
+    private BigDecimal penaltyForEarlyBuyBack;
 
     public TosProspectus build() {
-        return new TosProspectus(interestRate, penaltyForEarlyBuyBack, saleDateRange, buyBackDateRange);
+        return new TosProspectus(penaltyForEarlyBuyBack, saleDateRange, buyBackDateRange, interestRate);
     }
 
-    public TosProspectusBuilder interestRate(double interestRate) {
+    public TosProspectusBuilder interestRate(BigDecimal interestRate) {
         this.interestRate = interestRate;
         return this;
     }
 
-    public TosProspectusBuilder penaltyForEarlyBuyBack(double penaltyForEarlyBuyBack) {
+    public TosProspectusBuilder penaltyForEarlyBuyBack(BigDecimal penaltyForEarlyBuyBack) {
         this.penaltyForEarlyBuyBack = penaltyForEarlyBuyBack;
         return this;
     }

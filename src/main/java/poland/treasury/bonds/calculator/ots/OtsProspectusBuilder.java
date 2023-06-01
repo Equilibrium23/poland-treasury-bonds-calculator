@@ -2,16 +2,18 @@ package poland.treasury.bonds.calculator.ots;
 
 import poland.treasury.bonds.calculator.DateRange;
 
+import java.math.BigDecimal;
+
 public class OtsProspectusBuilder {
-    private double interestRate;
+    private BigDecimal interestRate;
     private DateRange saleDateRange;
     private DateRange buyBackDateRange;
 
     public OtsProspectus build() {
-        return new OtsProspectus(interestRate, saleDateRange, buyBackDateRange);
+        return new OtsProspectus(BigDecimal.ZERO, saleDateRange, buyBackDateRange, interestRate);
     }
 
-    public OtsProspectusBuilder interestRate(double interestRate) {
+    public OtsProspectusBuilder interestRate(BigDecimal interestRate) {
         this.interestRate = interestRate;
         return this;
     }
