@@ -30,8 +30,8 @@ public class OtsProspectusBuilder {
     public OtsProspectusBuilder buyBackDateRange(DateRange buyBackDateRange) {
         this.buyBackDateRange = buyBackDateRange;
         this.saleDateRange = new DateRange(
-                saleDateRange.startDate().minusMonths(OtsProspectus.BOND_DURATION.getMonths()),
-                saleDateRange.endDate().minusMonths(OtsProspectus.BOND_DURATION.getMonths())
+                buyBackDateRange.startDate().minusMonths(OtsProspectus.BOND_DURATION.getMonths()),
+                buyBackDateRange.endDate().minusMonths(OtsProspectus.BOND_DURATION.getMonths())
         );
         return this;
     }

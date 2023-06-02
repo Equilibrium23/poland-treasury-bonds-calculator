@@ -7,63 +7,63 @@ import poland.treasury.bonds.calculator.ots.OtsProspectusBuilder;
 import java.math.BigDecimal;
 
 public class OTS {
-    public static OtsProspectus TOS0126 = new OtsProspectusBuilder()
-            .saleDateRange(DateRange.fromString("0126"))
+    public static OtsProspectus OTS0422 = new OtsProspectusBuilder()
+            .buyBackDateRange(DateRange.fromString("0422"))
             .interestRate(BigDecimal.valueOf(0.005))
             .build();
 
-    public static OtsProspectus TOS0226 = new OtsProspectusBuilder()
-            .saleDateRange(DateRange.fromString("0226"))
+    public static OtsProspectus OTS0522 = new OtsProspectusBuilder()
+            .buyBackDateRange(DateRange.fromString("0522"))
             .interestRate(BigDecimal.valueOf(0.01))
             .build();
 
-    public static OtsProspectus TOS0326 = new OtsProspectusBuilder()
-            .saleDateRange(DateRange.fromString("0326"))
+    public static OtsProspectus OTS0622 = new OtsProspectusBuilder()
+            .buyBackDateRange(DateRange.fromString("0622"))
             .interestRate(BigDecimal.valueOf(0.01))
             .build();
 
-    public static OtsProspectus TOS0426 = new OtsProspectusBuilder()
-            .saleDateRange(DateRange.fromString("0426"))
+    public static OtsProspectus OTS0722 = new OtsProspectusBuilder()
+            .buyBackDateRange(DateRange.fromString("0722"))
             .interestRate(BigDecimal.valueOf(0.015))
             .build();
 
-    public static OtsProspectus TOS0526 = new OtsProspectusBuilder()
-            .saleDateRange(DateRange.fromString("0526"))
+    public static OtsProspectus OTS0822 = new OtsProspectusBuilder()
+            .buyBackDateRange(DateRange.fromString("0822"))
             .interestRate(BigDecimal.valueOf(0.015))
             .build();
 
-    public static OtsProspectus TOS0626 = new OtsProspectusBuilder()
-            .saleDateRange(DateRange.fromString("0626"))
+    public static OtsProspectus OTS0922 = new OtsProspectusBuilder()
+            .buyBackDateRange(DateRange.fromString("0922"))
             .interestRate(BigDecimal.valueOf(0.03))
             .build();
 
-    public static OtsProspectus TOS0726 = new OtsProspectusBuilder()
-            .saleDateRange(DateRange.fromString("0726"))
+    public static OtsProspectus OTS1022 = new OtsProspectusBuilder()
+            .buyBackDateRange(DateRange.fromString("1022"))
             .interestRate(BigDecimal.valueOf(0.03))
             .build();
 
-    public static OtsProspectus TOS0826 = new OtsProspectusBuilder()
-            .saleDateRange(DateRange.fromString("0826"))
+    public static OtsProspectus OTS1122 = new OtsProspectusBuilder()
+            .buyBackDateRange(DateRange.fromString("1122"))
             .interestRate(BigDecimal.valueOf(0.03))
             .build();
 
-    public static OtsProspectus TOS0926 = new OtsProspectusBuilder()
-            .saleDateRange(DateRange.fromString("0926"))
+    public static OtsProspectus OTS1222 = new OtsProspectusBuilder()
+            .buyBackDateRange(DateRange.fromString("1222"))
             .interestRate(BigDecimal.valueOf(0.03))
             .build();
 
-    public static OtsProspectus TOS1026 = new OtsProspectusBuilder()
-            .saleDateRange(DateRange.fromString("1026"))
+    public static OtsProspectus OTS0123 = new OtsProspectusBuilder()
+            .buyBackDateRange(DateRange.fromString("0123"))
             .interestRate(BigDecimal.valueOf(0.03))
             .build();
 
-    public static OtsProspectus TOS1126 = new OtsProspectusBuilder()
-            .saleDateRange(DateRange.fromString("1126"))
+    public static OtsProspectus OTS0223 = new OtsProspectusBuilder()
+            .buyBackDateRange(DateRange.fromString("0223"))
             .interestRate(BigDecimal.valueOf(0.03))
             .build();
 
-    public static OtsProspectus TOS1226 = new OtsProspectusBuilder()
-            .saleDateRange(DateRange.fromString("1226"))
+    public static OtsProspectus OTS0323 = new OtsProspectusBuilder()
+            .buyBackDateRange(DateRange.fromString("0323"))
             .interestRate(BigDecimal.valueOf(0.03))
             .build();
 }

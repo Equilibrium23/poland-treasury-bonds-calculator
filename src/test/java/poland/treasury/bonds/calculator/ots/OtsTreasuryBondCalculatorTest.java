@@ -3,65 +3,76 @@ package poland.treasury.bonds.calculator.ots;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
-import poland.treasury.bonds.calculator.DateRange;
+import poland.treasury.bonds.calculator.TreasuryBondProspectus;
 import poland.treasury.bonds.calculator.TreasuryBondService;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.stream.Stream;
 
-class OtsTreasuryBondCalculatorTest {
-    private final short ANY_DAY_OF_MONTH = 1;
+import static poland.treasury.bonds.calculator.database.OTS.*;
 
-    public static Stream<Arguments> otsSampleProspectus() {
-        LocalDate startDay = LocalDate.of(2022, Month.JANUARY, 1);
-        LocalDate endDay = LocalDate.of(2022, Month.JANUARY, 31);
+class OtsTreasuryBondCalculatorTest {
+    @ParameterizedTest
+    @MethodSource("otsSampleProspectusWithExpectedReturn")
+    public void testFullTimeBuyBack(OtsProspectus otsProspectus, double expectedInvestmentReturn){
+        //given
+        LocalDate firstDayOfBondRelease = otsProspectus.getSaleDateRange().startDate();
+        OtsTreasuryBond otsTreasuryBond = TreasuryBondService.buyOtsBonds(otsProspectus, 1, firstDayOfBondRelease);
+
+        //when
+        double investmentReturn = OtsTreasuryBondCalculator.calculate(otsTreasuryBond, otsTreasuryBond.getDefaultBuyBackDay());
+
+        //then
+        Assertions.assertEquals(expectedInvestmentReturn, investmentReturn);
+    }
+
+    public static Stream<Arguments> otsSampleProspectusWithExpectedReturn() {
         return Stream.of(
-                Arguments.of(new DateRange(startDay, endDay), 0.005, 100.12),
-                Arguments.of(new DateRange(startDay.plusMonths(1), endDay.plusMonths(1)), 0.01, 100.24),
-                Arguments.of(new DateRange(startDay.plusMonths(2), endDay.plusMonths(2)), 0.01, 100.25),
-                Arguments.of(new DateRange(startDay.plusMonths(3), endDay.plusMonths(3)), 0.015, 100.37),
-                Arguments.of(new DateRange(startDay.plusMonths(4), endDay.plusMonths(4)), 0.015, 100.38),
-                Arguments.of(new DateRange(startDay.plusMonths(5), endDay.plusMonths(5)), 0.03, 100.76),
-                Arguments.of(new DateRange(startDay.plusMonths(6), endDay.plusMonths(6)), 0.03, 100.76),
-                Arguments.of(new DateRange(startDay.plusMonths(7), endDay.plusMonths(7)), 0.03, 100.76),
-                Arguments.of(new DateRange(startDay.plusMonths(8), endDay.plusMonths(8)), 0.03, 100.75),
-                Arguments.of(new DateRange(startDay.plusMonths(9), endDay.plusMonths(9)), 0.03, 100.76),
-                Arguments.of(new DateRange(startDay.plusMonths(10), endDay.plusMonths(10)), 0.03, 100.76),
-                Arguments.of(new DateRange(startDay.plusMonths(11), endDay.plusMonths(11)), 0.03, 100.74)
+                Arguments.of(OTS0422, 100.12),
+                Arguments.of(OTS0522, 100.24),
+                Arguments.of(OTS0622, 100.25),
+                Arguments.of(OTS0722, 100.37),
+                Arguments.of(OTS0822, 100.38),
+                Arguments.of(OTS0922, 100.76),
+                Arguments.of(OTS1022, 100.76),
+                Arguments.of(OTS1122, 100.76),
+                Arguments.of(OTS1222, 100.75),
+                Arguments.of(OTS0123, 100.76),
+                Arguments.of(OTS0223, 100.76),
+                Arguments.of(OTS0323, 100.74)
         );
     }
 
     @ParameterizedTest
     @MethodSource("otsSampleProspectus")
-    public void testFullTimeBuyBack(DateRange saleDateRange, double interestRate, double expectedReturn){
-        OtsProspectus otsProspectus = new OtsProspectusBuilder()
-                .interestRate(BigDecimal.valueOf(interestRate))
-                .saleDateRange(saleDateRange)
-                .build();
+    public void testEarlierBuyBack(OtsProspectus otsProspectus){
+        //given
+        final double zeroInvestmentReturn = TreasuryBondProspectus.UNIT_PRICE;
+        LocalDate firstDayOfBondRelease = otsProspectus.getSaleDateRange().startDate();
+        OtsTreasuryBond otsTreasuryBond = TreasuryBondService.buyOtsBonds(otsProspectus, 1, firstDayOfBondRelease);
 
-        LocalDate startDate = saleDateRange.startDate();
-        LocalDate endDate = saleDateRange.startDate().plusMonths(3);
+        //when
+        double investmentReturn = OtsTreasuryBondCalculator.calculate(otsTreasuryBond, firstDayOfBondRelease.plusMonths(1));
 
-        OtsTreasuryBond otsTreasuryBond = TreasuryBondService.buyOtsBonds(otsProspectus, 1, startDate);
-
-        Assertions.assertEquals(expectedReturn, OtsTreasuryBondCalculator.calculate(otsTreasuryBond, endDate));
+        //then
+        Assertions.assertEquals(zeroInvestmentReturn, investmentReturn);
     }
 
-    @ParameterizedTest
-    @ValueSource(doubles = {0.0, 0.01, 0.1, 1})
-    public void testEarlierBuyBack(double ANY_INTEREST){
-        OtsProspectus otsProspectus = new OtsProspectusBuilder()
-                .interestRate(BigDecimal.valueOf(ANY_INTEREST))
-                .saleDateRange(new DateRange(LocalDate.of(2023, 1, 1), LocalDate.of(2023, 1, 31)))
-                .build();
-
-        OtsTreasuryBond otsTreasuryBond = TreasuryBondService.buyOtsBonds(otsProspectus, 1, LocalDate.of(2023, 1, ANY_DAY_OF_MONTH));
-
-        Assertions.assertEquals(100, OtsTreasuryBondCalculator.calculate(otsTreasuryBond, LocalDate.of(2023, 2, ANY_DAY_OF_MONTH)));
+    public static Stream<Arguments> otsSampleProspectus() {
+        return Stream.of(
+                Arguments.of(OTS0422),
+                Arguments.of(OTS0522),
+                Arguments.of(OTS0622),
+                Arguments.of(OTS0722),
+                Arguments.of(OTS0822),
+                Arguments.of(OTS0922),
+                Arguments.of(OTS1022),
+                Arguments.of(OTS1122),
+                Arguments.of(OTS1222),
+                Arguments.of(OTS0123),
+                Arguments.of(OTS0223),
+                Arguments.of(OTS0323)
+        );
     }
 }
