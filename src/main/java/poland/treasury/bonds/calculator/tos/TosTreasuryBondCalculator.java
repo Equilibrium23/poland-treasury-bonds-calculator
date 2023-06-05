@@ -1,8 +1,5 @@
 package poland.treasury.bonds.calculator.tos;
 
-import poland.treasury.bonds.calculator.ots.OtsProspectus;
-import poland.treasury.bonds.calculator.ots.OtsTreasuryBond;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;

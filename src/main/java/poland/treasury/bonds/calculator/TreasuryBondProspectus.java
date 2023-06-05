@@ -1,7 +1,6 @@
 package poland.treasury.bonds.calculator;
 
 import java.math.BigDecimal;
-import java.time.Period;
 
 public abstract class TreasuryBondProspectus {
     public static final int UNIT_PRICE = 100;

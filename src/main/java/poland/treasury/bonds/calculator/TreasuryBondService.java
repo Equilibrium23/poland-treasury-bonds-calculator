@@ -7,6 +7,7 @@ import poland.treasury.bonds.calculator.ots.OtsTreasuryBond;
 import poland.treasury.bonds.calculator.tos.TosProspectus;
 import poland.treasury.bonds.calculator.tos.TosTreasuryBond;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class TreasuryBondService {
         return new OtsTreasuryBond(otsProspectus, quantity, purchaseDay);
     }
 
-    public static CoiTreasuryBond buyCoiBonds(CoiProspectus coiProspectus, long quantity, LocalDate purchaseDay, List<Double> inflation){
+    public static CoiTreasuryBond buyCoiBonds(CoiProspectus coiProspectus, long quantity, LocalDate purchaseDay, List<BigDecimal> inflation){
         return new CoiTreasuryBond(coiProspectus, quantity, purchaseDay, inflation);
     }
 }
